@@ -9,6 +9,7 @@ def step_impl(context):
     # Assert to confirm the current page if needed for additional safety
     assert context.browser.title == "Dürr Dental ID", "Not on the 'Dürr Dental ID' login page"
 
+
 @when('I enter "{email}" as the email and "{password}" as the password')
 def step_impl(context, email, password):
     login_username = os.getenv(email)  # Environment variable for the email
@@ -22,19 +23,19 @@ def step_impl(context, email, password):
     password_input.clear()
     password_input.send_keys(login_pwd)
 
+
 @when('I submit the login form')
 def step_impl(context):
     submit_button = context.browser.find_element(By.NAME, "login")
     submit_button.click()
 
+
 @then('I should be redirected to the VSM dashboard')
 def step_impl(context):
     WebDriverWait(context.browser, 10).until(
-        EC.url_to_be("https://vsmonitor.com/dashboard")  # Adjust URL as needed
+        EC.url_to_be("https://vsmonitor.com/dashboard")
     )
 
-    # Attempt to find the element with the class "_tid_dashboard"
     dashboard_element = context.browser.find_element(By.CLASS_NAME, "_tid_dashboard")
-    # If the element is found, the text "Dashboard" should be present
     assert dashboard_element, "Dashboard element is missing."
 
