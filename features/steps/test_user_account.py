@@ -74,6 +74,6 @@ def step_impl(context):
     email_input = context.browser.find_element(By.ID, "email")
     email_value = email_input.get_attribute('value')
 
-    assert first_name_value == correct_fname, f"Expected first name {correct_fname}, but found {first_name_element}"
-    assert last_name_value == correct_lname, f"Expected last name {correct_lname}, but found {last_name_element}"
-    assert email_value == correct_email, f"Expected email {correct_email}, but found {email_element.text}"
+    assert first_name_value == correct_fname, f"Expected first name {correct_fname}, but found {first_name_value}"
+    assert last_name_value == correct_lname, f"Expected last name {correct_lname}, but found {last_name_value}"
+    assert email_value == correct_email, f"Expected email {correct_email}, but found {email_value}"
