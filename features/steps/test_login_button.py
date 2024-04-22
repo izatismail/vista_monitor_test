@@ -4,25 +4,26 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+from features.utilities import config as util_cfg
+from features.utilities import site_navigator as util_nav
+from features.utilities import common_actions as util_ca
+
 
 @given('I am on the VSM homepage')
 def step_impl(context):
-    context.browser.get("https://vsmonitor.com")
+    util_nav.go_to_page(context, util_cfg.URLConfig.HOMEPAGE)
 
 
 @when('I click on the Login button')
 def step_impl(context):
-    xpath = "//button[contains(@aria-label, 'btn-sso') and contains(., 'Login')]"
-    login_button = WebDriverWait(context.browser, 10).until(
-        EC.element_to_be_clickable((By.XPATH, xpath))
-    )
-    login_button.click()
+    util_ca.click_login_button(context)
 
 
 @then('I should be on the "Dürr Dental ID" login page')
 def step_impl(context):
     # Now perform the assertion to check the page title
-    assert context.browser.title == "Dürr Dental ID", f"Expected page title to be 'Dürr Dental ID', but it was '{context.browser.title}'"
+    assert context.browser.title == util_cfg.PageTitle.LOGIN, \
+                        f"Expected page title to be {util_cfg.PageTitle.LOGIN}, but it was '{context.browser.title}'"
 
     # Wait for all elements matching the CSS selector to be visible on the page
     headers = WebDriverWait(context.browser, 10).until(
